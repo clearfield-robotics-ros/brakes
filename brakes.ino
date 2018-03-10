@@ -4,11 +4,18 @@
 
 // pin assignments: LH SERVO_PIN_A = 9, RH SERVO_PIN_B = 10
 
+// NOTE: in ArduinoIncludes.h line 44:
+// write this --> #if defined(__MK20DX128__) || defined(__MK20DX256__) || defined(__MK65FX512__) || defined(__MK66FX1M0__)
+// not this   --> #if defined(__MK20DX128__) || defined(__MK20DX256__)
+
 int braking_current_state, braking_desired_state;
 
 int pos_lh_inactive = 80; // servo position when brakes are inactive
 int pos_lh = pos_lh_inactive;    // variable to store the servo position
 int pos_lh_active = 150; // servo position when brakes are active
+int pos_rh_inactive = 80; // servo position when brakes are inactive
+int pos_rh = pos_rh_inactive;    // variable to store the servo position
+int pos_rh_active = 150; // servo position when brakes are active
 
 ros::NodeHandle  nh;
 std_msgs::Int16 handshake;
@@ -27,11 +34,11 @@ void messageCb(const std_msgs::Int16& msg){
 
 void setup() {
   lh_brake.attach(SERVO_PIN_A);  // attaches the servo on pin 9 to the LH brake
+//  rh_brake.attach(SERVO_PIN_B);  // attaches the servo on pin 9 to the LH brake
   nh.initNode(); // create ROS node
   nh.subscribe(sub); // set up subscriber
   nh.advertise(pub); // set up publisher
 }
-
 
 void loop() {
   if(braking_desired_state){
