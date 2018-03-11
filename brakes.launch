@@ -1,0 +1,6 @@
+<launch>
+
+	<node name="brakes" pkg="rosserial_python" args="/dev/serial/by-id/usb-Teensyduino_USB_Serial_4074970-if00" type="serial_node.py" output="screen"/>
+
+</launch>
+

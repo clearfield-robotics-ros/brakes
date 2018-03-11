@@ -2,6 +2,8 @@
 #include <ros.h>
 #include <std_msgs/Int16.h>
 
+// rosrun rosserial_python serial_node.py /dev/ttyACM0 NOT ttyUSB0
+
 // pin assignments: LH SERVO_PIN_A = 9, RH SERVO_PIN_B = 10
 
 // NOTE: in ArduinoIncludes.h line 44:
@@ -22,6 +24,9 @@ std_msgs::Int16 handshake;
 void messageCb(const std_msgs::Int16& msg);
 ros::Subscriber<std_msgs::Int16> sub("braking_desired_state", messageCb );
 ros::Publisher pub("braking_current_state", &handshake);
+
+// http://wiki.ros.org/rosserial/Overview/Logging
+// nh.loginfo("Debug note.")
 
 PWMServo lh_brake;
 //PWMServo rh_brake;
