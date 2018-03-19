@@ -12,9 +12,9 @@
 
 int braking_current_state, braking_desired_state;
 
-int pos_lh_inactive = 80; // servo position when brakes are inactive
+int pos_lh_inactive = 122; // servo position when brakes are inactive
 int pos_lh = pos_lh_inactive;    // variable to store the servo position
-int pos_lh_active = 150; // servo position when brakes are active
+int pos_lh_active = 108; // servo position when brakes are active
 int pos_rh_inactive = 80; // servo position when brakes are inactive
 int pos_rh = pos_rh_inactive;    // variable to store the servo position
 int pos_rh_active = 150; // servo position when brakes are active
@@ -31,7 +31,7 @@ ros::Publisher pub("braking_current_state", &handshake);
 PWMServo lh_brake;
 //PWMServo rh_brake;
 
-void messageCb(const std_msgs::Int16& msg){
+void messageCb(const std_msgs::Int16& msg) {
   braking_desired_state = msg.data; // read the desired braking state
   handshake.data = braking_desired_state; // stuff this message to prepare for handshake
   pub.publish(&handshake);
@@ -39,22 +39,29 @@ void messageCb(const std_msgs::Int16& msg){
 
 void setup() {
   lh_brake.attach(SERVO_PIN_A);  // attaches the servo on pin 9 to the LH brake
-//  rh_brake.attach(SERVO_PIN_B);  // attaches the servo on pin 9 to the LH brake
+  //  rh_brake.attach(SERVO_PIN_B);  // attaches the servo on pin 9 to the LH brake
   nh.initNode(); // create ROS node
   nh.subscribe(sub); // set up subscriber
   nh.advertise(pub); // set up publisher
 }
 
 void loop() {
-  if(braking_desired_state){
-    pos_lh = pos_lh_active;
-//    pos_rh = pos_rh_active;
-  }
-  else{
-    pos_lh = pos_lh_inactive;
-//    pos_rh = pos_rh_inactive;
-  }
+  //  if(braking_desired_state){
+  //    pos_lh = pos_lh_active;
+  ////    pos_rh = pos_rh_active;
+  //  }
+  //  else{
+  //    pos_lh = pos_lh_inactive;
+  ////    pos_rh = pos_rh_inactive;
+  //  }
+  //  lh_brake.write(pos_lh);
+  ////  rh_brake.write(pos_rh);
+  //  nh.spinOnce();
+  pos_lh = pos_lh_active;
   lh_brake.write(pos_lh);
-//  rh_brake.write(pos_rh);
-  nh.spinOnce();
+  delay(1500);
+  pos_lh = pos_lh_inactive;
+  lh_brake.write(pos_lh);
+    delay(2500);
+
 }
