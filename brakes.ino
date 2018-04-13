@@ -12,12 +12,12 @@
 
 int braking_current_state, braking_desired_state;
 
-int pos_lh_inactive = 72; // servo position when brakes are inactive 122 all 75 to start with
+int pos_lh_inactive = 72; // servo position when brakes are inactive
 int pos_lh = pos_lh_inactive;    // variable to store the servo position
-int pos_lh_active = 72; // servo position when brakes are active 108 was 53
+int pos_lh_active = 53; // servo position when brakes are active (or 108???)
 int pos_rh_inactive = 124; // servo position when brakes are inactive
 int pos_rh = pos_rh_inactive;    // variable to store the servo position
-int pos_rh_active = 124; // servo position when brakes are active was 153
+int pos_rh_active = 153; // servo position when brakes are active
 
 ros::NodeHandle  nh;
 std_msgs::Int16 handshake;
@@ -46,25 +46,26 @@ void setup() {
 }
 
 void loop() {
-  //  if(braking_desired_state){
-  //    pos_lh = pos_lh_active;
-  ////    pos_rh = pos_rh_active;
-  //  }
-  //  else{
-  //    pos_lh = pos_lh_inactive;
-  ////    pos_rh = pos_rh_inactive;
-  //  }
-  //  lh_brake.write(pos_lh);
-  ////  rh_brake.write(pos_rh);
-  //  nh.spinOnce();
-  pos_lh = pos_lh_active;
-  lh_brake.write(pos_lh);
-  pos_rh = pos_rh_active;
-  rh_brake.write(pos_rh);
-  delay(1000);
-  pos_lh = pos_lh_inactive;
-  lh_brake.write(pos_lh);
-  pos_rh = pos_rh_inactive;
-  rh_brake.write(pos_rh);
-  delay(1000);
+   if(braking_desired_state){
+     pos_lh = pos_lh_active;
+     pos_rh = pos_rh_active;
+   }
+   else{
+     pos_lh = pos_lh_inactive;
+     pos_rh = pos_rh_inactive;
+   }
+   lh_brake.write(pos_lh);
+   rh_brake.write(pos_rh);
+   nh.spinOnce();
+  // for debugging vvv
+  // pos_lh = pos_lh_active;
+  // lh_brake.write(pos_lh);
+  // pos_rh = pos_rh_active;
+  // rh_brake.write(pos_rh);
+  // delay(1000);
+  // pos_lh = pos_lh_inactive;
+  // lh_brake.write(pos_lh);
+  // pos_rh = pos_rh_inactive;
+  // rh_brake.write(pos_rh);
+  // delay(1000);
 }
