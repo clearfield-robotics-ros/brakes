@@ -14,7 +14,7 @@ int braking_current_state, braking_desired_state;
 
 int pos_lh_inactive = 72; // servo position when brakes are inactive
 int pos_lh = pos_lh_inactive;    // variable to store the servo position
-int pos_lh_active = 53; // servo position when brakes are active (or 108???)
+int pos_lh_active = 53; // servo position when brakes are active
 int pos_rh_inactive = 124; // servo position when brakes are inactive
 int pos_rh = pos_rh_inactive;    // variable to store the servo position
 int pos_rh_active = 153; // servo position when brakes are active
@@ -58,14 +58,14 @@ void loop() {
    rh_brake.write(pos_rh);
    nh.spinOnce();
   // for debugging vvv
-  // pos_lh = pos_lh_active;
-  // lh_brake.write(pos_lh);
-  // pos_rh = pos_rh_active;
-  // rh_brake.write(pos_rh);
-  // delay(1000);
-  // pos_lh = pos_lh_inactive;
-  // lh_brake.write(pos_lh);
-  // pos_rh = pos_rh_inactive;
-  // rh_brake.write(pos_rh);
-  // delay(1000);
+//   pos_lh = pos_lh_active;
+//   lh_brake.write(pos_lh);
+//   pos_rh = pos_rh_active;
+//   rh_brake.write(pos_rh);
+//   delay(1000);
+//   pos_lh = pos_lh_inactive;
+//   lh_brake.write(pos_lh);
+//   pos_rh = pos_rh_inactive;
+//   rh_brake.write(pos_rh);
+//   delay(1000);
 }
